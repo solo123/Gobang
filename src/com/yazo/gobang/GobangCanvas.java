@@ -60,24 +60,12 @@ public class GobangCanvas extends Canvas
         status = "";
         statusColor = 0;
         isUpSide = true;
-        for(int i = 0; i < 4; i++)
-            imgStatus[i] = Image.createImage(1, 1);
-
-        try
-        {
-            imgStatus[0] = Image.createImage("/thinking.png");
-        }
-        catch(IOException _ex) { }
-        try
-        {
-            imgStatus[1] = Image.createImage("/win.png");
-        }
-        catch(IOException _ex) { }
-        try
-        {
-            imgStatus[2] = Image.createImage("/lose.png");
-        }
-        catch(IOException _ex) { }
+    	try {
+    		imgStatus[0] = Image.createImage("/thinking.png");
+    		imgStatus[1] = Image.createImage("/win.png");
+    		imgStatus[2] = Image.createImage("/lose.png");
+    		imgStatus[3] = Image.createImage("/wait.png");
+    	} catch(IOException _ex) { }
         statusImage = 3;
         isColor = Display.getDisplay(midlet).numColors() > 2;
       
@@ -112,14 +100,17 @@ public class GobangCanvas extends Canvas
 
     public void paint(Graphics g)
     {
-        g.setColor(0xffffff);
+        g.setColor(0xce9858);
         g.fillRect(0, 0, canvasWidth, canvasHeight);
+        
+        
+        
         if(isColor)
         {
-        	g.setColor(216,170,136);
+        	g.setColor(0xf7c370);
             g.fillRect(boardX, boardY, boardLength, boardLength);
         }
-        g.setColor(isColor ? 255 : 0);
+        g.setColor(isColor ? 0x666666 : 0);
         int y;
         for(int r = 0; r < boardSize; r++)
         {
@@ -201,9 +192,11 @@ public class GobangCanvas extends Canvas
         g.setColor(isColor ? statusColor : 0);
         if(isUpSide)
         {
-            g.drawImage(imgStatus[statusImage], 0, 0, 20);
-            x = imgStatus[statusImage].getWidth();
-            g.drawString(status, x, 0, 20);
+        	System.out.println("statusImage:" + statusImage);
+            x = 36; //imgStatus[statusImage].getWidth();
+            int fy = 20 - font.getHeight()/2; 
+            g.drawString("" + statusImage + ":" + status, x, fy, Graphics.TOP|Graphics.LEFT);
+            g.drawImage(imgStatus[statusImage], 0, 4, 20);
         } else
         {
             x = cWidth + fontWidth;
