@@ -63,9 +63,9 @@ public class GobangCanvas extends Canvas
     	try {
     		imgStatus[0] = Image.createImage("/thinking.png");
     		imgStatus[1] = Image.createImage("/win.png");
-    		imgStatus[2] = Image.createImage("/lose.png");
+			imgStatus[2] = Image.createImage("/lose1.png");
     		imgStatus[3] = Image.createImage("/wait.png");
-    	} catch(IOException _ex) { }
+    	} catch(IOException e) { e.printStackTrace(); }
         statusImage = 3;
         isColor = Display.getDisplay(midlet).numColors() > 2;
       
@@ -116,14 +116,14 @@ public class GobangCanvas extends Canvas
         {
             int x1 = boardX + gridLength / 2;
             int x2 = (x1 + boardLength) - gridLength;
-            y = boardY + r * gridLength + gridLength / 2;
+            y = boardY + r * gridLength + gridLength ;
             g.drawLine(x1, y, x2, y);
         }
 
         int x;
         for(int c = 0; c < boardSize; c++)
         {
-            x = boardX + c * gridLength + gridLength / 2;
+            x = boardX + c * gridLength + gridLength ;
             int y1 = boardY + gridLength / 2;
             int y2 = (y1 + boardLength) - gridLength;
             g.drawLine(x, y1, x, y2);
@@ -155,9 +155,9 @@ public class GobangCanvas extends Canvas
                         x = xByCol(c) - stoneLength / 2;
                         y = yByRow(r) - stoneLength / 2;
                         g.setColor(stone == 1 ? computerColor : manColor);
-                        g.fillArc(x, y, stoneLength, stoneLength, 0, 360);
-                        g.setColor(0);
-                        g.drawArc(x, y, stoneLength, stoneLength, 0, 360);
+                        g.fillArc(x+1, y+1, stoneLength-2, stoneLength-2, 0, 360);
+                        g.setColor(0x666666);
+                        g.drawArc(x+1, y+1, stoneLength-2, stoneLength-2, 0, 360);
                     }
                 }
 
@@ -192,10 +192,10 @@ public class GobangCanvas extends Canvas
         g.setColor(isColor ? statusColor : 0);
         if(isUpSide)
         {
-        	System.out.println("statusImage:" + statusImage);
+        	//System.out.println("statusImage:" + statusImage);
             x = 36; //imgStatus[statusImage].getWidth();
             int fy = 20 - font.getHeight()/2; 
-            g.drawString("" + statusImage + ":" + status, x, fy, Graphics.TOP|Graphics.LEFT);
+            g.drawString(status, x, fy, Graphics.TOP|Graphics.LEFT);
             g.drawImage(imgStatus[statusImage], 0, 4, 20);
         } else
         {
