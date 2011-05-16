@@ -183,7 +183,17 @@ public class GobangLogic
     {
         isThinking = true;
         Dot dc = null;
-        if((dc = to5L(1)) == null && (dc = to5L(2)) == null && (dc = to4B(1)) == null && (dc = to4B(2)) == null && (dc = toDouble4S_3B_2N1B(1, true)) == null && (dc = toDouble4S_3B_2N1B(2, true)) == null && (dc = toDouble4S_3B_2N1B(1, false)) == null && (dc = toDouble4S_3B_2N1B(2, false)) == null && (dc = toSingle4S_3B_2N1B(1)) == null)
+        if(
+        		(dc = to5L(1)) == null && 
+        		(dc = to5L(2)) == null && 
+        		(dc = to4B(1)) == null && 
+        		(dc = to4B(2)) == null && 
+        		(dc = toDouble4S_3B_2N1B(1, true)) == null && 
+        		(dc = toDouble4S_3B_2N1B(2, true)) == null && 
+        		(dc = toDouble4S_3B_2N1B(1, false)) == null && 
+        		(dc = toDouble4S_3B_2N1B(2, false)) == null && 
+        		(dc = toSingle4S_3B_2N1B(1)) == null
+        	)
             dc = toSingle4S_3B_2N1B(2);
         if(dc == null)
             dc = maxGainedDot();

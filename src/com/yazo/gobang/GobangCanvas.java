@@ -103,29 +103,29 @@ public class GobangCanvas extends Canvas
         g.setColor(0xce9858);
         g.fillRect(0, 0, canvasWidth, canvasHeight);
         
-        
-        
         if(isColor)
         {
         	g.setColor(0xf7c370);
             g.fillRect(boardX, boardY, boardLength, boardLength);
+            g.setColor(0xa2956);
+            g.drawRect(boardX-1, boardY-1, boardLength+2, boardLength+2);
         }
         g.setColor(isColor ? 0x666666 : 0);
         int y;
-        for(int r = 0; r < boardSize; r++)
+        for(int r = 0; r < boardSize-1; r++)
         {
-            int x1 = boardX + gridLength / 2;
-            int x2 = (x1 + boardLength) - gridLength;
+            int x1 = boardX;
+            int x2 = x1 + boardLength;
             y = boardY + r * gridLength + gridLength ;
             g.drawLine(x1, y, x2, y);
         }
 
         int x;
-        for(int c = 0; c < boardSize; c++)
+        for(int c = 0; c < boardSize-1; c++)
         {
             x = boardX + c * gridLength + gridLength ;
-            int y1 = boardY + gridLength / 2;
-            int y2 = (y1 + boardLength) - gridLength;
+            int y1 = boardY;
+            int y2 = y1 + boardLength;
             g.drawLine(x, y1, x, y2);
         }
         
@@ -155,7 +155,7 @@ public class GobangCanvas extends Canvas
                         x = xByCol(c) - stoneLength / 2;
                         y = yByRow(r) - stoneLength / 2;
                         g.setColor(stone == 1 ? computerColor : manColor);
-                        g.fillArc(x+1, y+1, stoneLength-2, stoneLength-2, 0, 360);
+                        g.fillArc(x+1, y+1, stoneLength-1, stoneLength-1, 0, 360);
                         g.setColor(0x666666);
                         g.drawArc(x+1, y+1, stoneLength-2, stoneLength-2, 0, 360);
                     }
@@ -185,9 +185,9 @@ public class GobangCanvas extends Canvas
             }
         }
         g.setColor(cLast);
-        x = xByCol(lastCol) - 3;
-        y = yByRow(lastRow) - 3;
-        g.drawRect(x, y, 6, 6);
+        x = xByCol(lastCol) - stoneLength / 2;
+        y = yByRow(lastRow) - stoneLength / 2;
+        g.drawRect(x, y, stoneLength, stoneLength);
         g.setFont(font);
         g.setColor(isColor ? statusColor : 0);
         if(isUpSide)

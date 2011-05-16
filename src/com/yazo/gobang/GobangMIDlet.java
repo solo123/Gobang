@@ -7,6 +7,7 @@ import javax.microedition.lcdui.CommandListener;
 import javax.microedition.lcdui.Display;
 import javax.microedition.lcdui.Displayable;
 import javax.microedition.lcdui.Form;
+import javax.microedition.lcdui.Graphics;
 import javax.microedition.lcdui.Image;
 import javax.microedition.midlet.MIDlet;
 
@@ -26,8 +27,19 @@ public class GobangMIDlet extends MIDlet implements CommandListener {
 		dis = Display.getDisplay(this);
 		frm = new Form(null);
 		try {
-			img = Image.createImage("/logo.png");
-//			img = Image.createImage(img,0,0,frm.getWidth(),frm.getHeight(),0);
+			int w = frm.getWidth();
+			int h = frm.getHeight();
+			Image cover = Image.createImage("/GoBang.png");
+			if (cover.getHeight()>=h || cover.getWidth()>=h){
+				img = ImageUtil.effect_resizeImage(cover, w, h);
+			} else {
+				img = Image.createImage(w-1,h-1);
+				Graphics g = img.getGraphics();
+				g.setColor(0);
+				g.fillRect(0, 0, w, h);
+				g.drawImage(cover, (w-cover.getWidth())/2, (h-cover.getHeight())/2, Graphics.TOP|Graphics.LEFT);
+				g = null;
+			}
 		} catch (IOException _ex) {
 			img = Image.createImage(1, 1);
 		}
@@ -41,8 +53,7 @@ public class GobangMIDlet extends MIDlet implements CommandListener {
 	}
 
 	public void startApp() {
-		
-		frm.append(ImageUtil.effect_resizeImage(img, frm.getWidth(), frm.getHeight()));
+		frm.append(img);
 		frm.addCommand(cmdStart);
 		frm.addCommand(cmdSet);
 		frm.addCommand(cmdInt);
